@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+
+.Logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Logo img {
+  width: 70px;
+  height: 55px;
+}
