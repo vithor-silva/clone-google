@@ -7,11 +7,17 @@ const Serach = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const API_KEY = "";
+  const API_KEY =
+    "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!query) {
+      return;
+    }
+    setLoading(true);
 
     const url = "https://serpapi.com/search.json";
     try {
@@ -31,6 +37,8 @@ const Serach = () => {
     } catch (err) {
       console.error(err);
       setError("Ocorreu um erro ao fazer a busca");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,6 +56,26 @@ const Serach = () => {
         />
         <button type="submit">Buscar</button>
       </form>
+      <div>
+        <ul>
+          {error ? (
+            <h4>{error}</h4>
+          ) : loading ? (
+            <h4>Carregando...</h4>
+          ) : (
+            results.map((item, index) => {
+              return (
+                <li key={index}>
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
+                    {item.title}{" "}
+                  </a>
+                  <p>{item.snippet}</p>
+                </li>
+              );
+            })
+          )}
+        </ul>
+      </div>
     </div>
   );
 };
