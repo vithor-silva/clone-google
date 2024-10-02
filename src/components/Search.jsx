@@ -9,30 +9,22 @@ const Serach = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const API_KEY =
-    "";
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!query) {
       return;
     }
+    setError("");
     setLoading(true);
 
-    const url = "https://serpapi.com/search.json";
     try {
+      const URL = "http://localhost:4000/search";
       const res = await axios.get(URL, {
         params: {
-          q: query,
-          engine: "google",
-          google_domain: "google.com.br",
-          api_key: API_KEY,
-          hl: "pt-br",
-          gl: "br",
-          num: 10,
+          query: query,
         },
       });
-      const data = await res.json();
+      const data = res.data.organic_results || [];
       setResults(data);
     } catch (err) {
       console.error(err);
@@ -57,13 +49,13 @@ const Serach = () => {
         <button type="submit">Buscar</button>
       </form>
       <div>
-        <ul>
-          {error ? (
-            <h4>{error}</h4>
-          ) : loading ? (
-            <h4>Carregando...</h4>
-          ) : (
-            results.map((item, index) => {
+        {error ? (
+          <h4>{error}</h4>
+        ) : loading ? (
+          <h4>Carregando...</h4>
+        ) : (
+          <ul>
+            {results.map((item, index) => {
               return (
                 <li key={index}>
                   <a href={item.link} target="_blank" rel="noopener noreferrer">
@@ -72,9 +64,9 @@ const Serach = () => {
                   <p>{item.snippet}</p>
                 </li>
               );
-            })
-          )}
-        </ul>
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );
