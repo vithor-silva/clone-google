@@ -41,9 +41,9 @@ Este projeto é uma aplicação React criada com Vite que realiza buscas em uma 
    npm install
    ```
 
-3. Configure sua chave da SerpAPI criando um arquivo `.env` na raiz do projeto e adicionando:
-   ```env
-   REACT_APP_SERPAPI_KEY=sua-chave-serpapi
+3. Configure sua chave da SerpAPI adicionando na vaiavél `API_KEY` em server.js:
+   ```
+   const API_KEY=sua-chave-serpapi
    ```
 
 4. Inicie o servidor Node.js para resolver o erro de CORS:
