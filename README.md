@@ -41,7 +41,7 @@ Este projeto é uma aplicação React criada com Vite que realiza buscas em uma 
    npm install
    ```
 
-3. Configure sua chave da SerpAPI adicionando na vaiavél `API_KEY` em server.js:
+3. Configure sua chave da SerpAPI adicionando na variável `API_KEY` em server.js:
    ```
    const API_KEY=sua-chave-serpapi
    ```
