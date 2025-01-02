@@ -76,11 +76,4 @@ server.js               # Backend Node.js com Express
 
 Logo mais, o projeto estará disponível em deploy.
 
-## Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
-
----
-
-Sinta-se à vontade para personalizar este README de acordo com as necessidades do seu projeto!
 
