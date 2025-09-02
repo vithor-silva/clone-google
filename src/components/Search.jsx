@@ -63,7 +63,7 @@ const Search = () => {
       <div className="logo-container">
         <img src={Noodles} alt="Noodles" className="logo-image" />
         <h1>
-          Noodle<span>Search</span>
+          Noodle<span>Search 2.0</span>
         </h1>
       </div>
 

@@ -49,11 +49,10 @@ app.get("/search", async (req, res) => {
     const totalResults = response.data.search_information?.total_results || 0;
 
     const currentPage = Math.floor(currentStart / resultsPerPage) + 1;
-    const totalPages = Math.min(Math.ceil(totalResults / resultsPerPage), 100); // Google limita a 100 páginas
+    const totalPages = Math.min(Math.ceil(totalResults / resultsPerPage), 10);
     const hasNextPage = currentPage < totalPages;
     const hasPrevPage = currentPage > 1;
 
-    // Gerar URLs para navegação
     const baseUrl = new URL(BASE_URL);
     baseUrl.searchParams.set("q", searchParams.q);
     baseUrl.searchParams.set("engine", searchParams.engine);
@@ -70,19 +69,28 @@ app.get("/search", async (req, res) => {
       resultsPerPage,
       hasNextPage,
       hasPrevPage,
-      nextPageUrl: hasNextPage ? `${baseUrl.toString()}&start=${currentStart + resultsPerPage}` : null,
-      prevPageUrl: hasPrevPage ? `${baseUrl.toString()}&start=${Math.max(0, currentStart - resultsPerPage)}` : null,
-      pageUrls: {}
+      nextPageUrl: hasNextPage
+        ? `${baseUrl.toString()}&start=${currentStart + resultsPerPage}`
+        : null,
+      prevPageUrl: hasPrevPage
+        ? `${baseUrl.toString()}&start=${Math.max(
+            0,
+            currentStart - resultsPerPage
+          )}`
+        : null,
+      pageUrls: {},
     };
 
     for (let i = 1; i <= Math.min(5, totalPages - currentPage); i++) {
       const pageNum = currentPage + i;
-      paginationInfo.pageUrls[pageNum] = `${baseUrl.toString()}&start=${(pageNum - 1) * resultsPerPage}`;
+      paginationInfo.pageUrls[pageNum] = `${baseUrl.toString()}&start=${
+        (pageNum - 1) * resultsPerPage
+      }`;
     }
 
     const enhancedResponse = {
       ...response.data,
-      pagination: paginationInfo
+      pagination: paginationInfo,
     };
 
     res.json(enhancedResponse);
